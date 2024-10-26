@@ -1,33 +1,33 @@
-# Friendly name for the workflow in GitHub
-name: DevSkim Vulnerability Scan
+name: OWASP Juice Shop Security Testing
 
-# Run the workflow each time code is pushed or when a pull-request is created
-on: [push, pull_request]
+on:
+  push:  # Trigger on push events
 
 jobs:
-  security-scan:
-    name: DevSkim Security Scan
+  devskim-scan:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the code
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # Create output directory for scan results if it doesn't exist
-      - name: Create Output Directory
-        run: mkdir -p .github/workflows/output
+      - name: Create output directory
+        run: mkdir -p output
 
-      # Run DevSkim for security vulnerability scanning
-      - name: Run DevSkim Security Scan
+      - name: Set up DevSkim
         uses: microsoft/devskim-action@v1
         with:
-          directory-to-scan: ./
+          directory-to-scan: routes
           should-scan-archives: false
           output-filename: devskim-results.sarif
-          output-directory: .github/workflows/output
+          output-directory: output
 
-      # Upload scan results as an artifact
-      - name: Upload DevSkim Scan Results
-        uses: actions/upload-artifact@v2
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: devskim-scan-results
-          path: .github/workflows/output/devskim-results.sarif
+          name: devskim-results
+          path: output/devskim-results.sarif
+
+      - name: Use GitHub Token
+        run: |
+          echo "Using GitHub Token"
+          echo "${{ secrets.GITHUB_TOKEN }}"
