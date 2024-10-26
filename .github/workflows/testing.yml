@@ -1,14 +1,19 @@
-name: OWASP Juice Shop Security Testing
+name: Guardian-Store-Develop
 
 on:
   push:  # Trigger on push events
+
+permissions:
+  contents: write  # Updated to allow write permissions for uploading artifacts
+  pages: write
+  id-token: write
 
 jobs:
   devskim-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Create output directory
         run: mkdir -p output
@@ -20,14 +25,5 @@ jobs:
           should-scan-archives: false
           output-filename: devskim-results.sarif
           output-directory: output
-
-      - name: Upload results as artifact
-        uses: actions/upload-artifact@v3
-        with:
           name: devskim-results
           path: output/devskim-results.sarif
-
-      - name: Use GitHub Token
-        run: |
-          echo "Using GitHub Token"
-          echo "${{ secrets.GITHUB_TOKEN }}"
