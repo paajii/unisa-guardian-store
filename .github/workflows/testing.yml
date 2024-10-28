@@ -4,7 +4,7 @@ on:
   push:  # Trigger on push events
 
 permissions:
-  contents: write  # Updated to allow write permissions for uploading artifacts
+  contents: write 
   pages: write
   id-token: write
 
@@ -25,5 +25,11 @@ jobs:
           should-scan-archives: false
           output-filename: devskim-results.sarif
           output-directory: output
+          name: devskim-results
+          path: output/devskim-results.sarif
+
+      - name: Upload DevSkim results
+        uses: actions/upload-artifact@v3
+        with:
           name: devskim-results
           path: output/devskim-results.sarif
