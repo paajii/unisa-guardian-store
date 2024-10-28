@@ -1,7 +1,7 @@
 name: Guardian-Store-Develop
 
 on:
-  push:  # Trigger on push events
+  push:  # Trigger on push eventss
 
 permissions:
   contents: write 
