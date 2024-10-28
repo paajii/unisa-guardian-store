@@ -7,7 +7,7 @@
 import models = require('../models/index')
 import { Request, Response, NextFunction } from 'express'
 import { UserModel } from '../models/user'
-import { ParsedQs } from 'qs' // Importing ParsedQs for type safety
+//import { ParsedQs } from 'qs' // Importing ParsedQs for type safety
 
 const utils = require('../lib/utils')
 const challengeUtils = require('../lib/challengeUtils')
