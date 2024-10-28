@@ -21,7 +21,7 @@ jobs:
       - name: Set up DevSkim
         uses: microsoft/devskim-action@v1
         with:
-          directory-to-scan: routes
+          directory-to-scan: /
           should-scan-archives: false
           output-filename: devskim-results.sarif
           output-directory: output
